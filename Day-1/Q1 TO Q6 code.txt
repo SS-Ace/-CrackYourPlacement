@@ -1,0 +1,182 @@
+Q1:
+class Solution {
+    public int findDuplicate(int[] nums) {
+        
+        int tortoise = nums[0];
+        int hare = nums[0];
+        
+        //finding the interesection point
+        
+        do{
+            tortoise = nums[tortoise];
+            hare = nums[nums[hare]];
+        }while(tortoise != hare);
+            
+        //finding the entrance point to cycle
+        tortoise = nums[0];
+        //tortoise will be moving from initial position
+        //and hare will be moving from intersection point for phase 2
+            
+        while(tortoise != hare){
+            tortoise = nums[tortoise];
+            hare = nums[hare];        //hare is slowed down
+        }
+        
+        return hare;
+        
+    }
+}
+
+
+
+
+Q2:
+class Solution {
+    public void sortColors(int[] nums) {
+        
+        int low = 0, mid = 0, high = nums.length - 1, temp;
+        
+        while(mid <= high){
+            
+            switch(nums[mid]){
+                    
+                case 0:
+                    temp = nums[low];
+                    nums[low] = nums[mid];
+                    nums[mid] = temp;
+                    low++;
+                    mid++;
+                    break;
+                    
+                case 1:
+                    mid++;
+                    break;
+                    
+                case 2:
+                    temp = nums[mid];
+                    nums[mid] = nums[high];
+                    nums[high] = temp;
+                    high--;
+                    break;
+                    
+                    
+            }
+            
+        }
+     
+    }
+        
+        
+}
+    
+
+Q3:
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        
+       if(nums.length == 0){
+           
+         return 0;
+           
+       } 
+        
+        int i = 0, j;
+        for(j = 1; j < nums.length; j++){
+            
+            if(nums[i] != nums[j]){
+                
+                i++;
+                nums[i] = nums[j];
+                
+            }
+        }
+       
+        return i + 1;
+        
+    }
+}
+
+Q4:
+class Solution {
+    public void setZeroes(int[][] matrix) {
+        int i, j;
+        int R = matrix.length;
+        int C = matrix[0]. length;
+        Set<Integer> rows = new HashSet<Integer>();
+        Set<Integer> cols = new HashSet<Integer>();
+        
+        //storing rows and columns that are made to be zero
+        for(i = 0; i < R; i++){
+            for(j = 0; j < C; j++){
+                
+                if(matrix[i][j] == 0){
+                    rows.add(i);
+                    cols.add(j);
+                }
+            }
+        }
+        
+        //Iterating again on array but now using rows and cols from sets also,
+        //to update elements
+        for(i = 0; i < R; i++){
+            for(j = 0; j < C; j++){
+                if(rows.contains(i) || cols.contains(j)){
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+    }
+}
+
+
+Q5:
+class Solution {
+    public void moveZeroes(int[] nums) {
+        
+        int n = nums.length;
+        
+        if(n == 0 || n == 1){
+            return;
+        }
+        
+        int left = 0, right = 0, tmp;
+        
+        while(right < n){
+            
+            if(nums[right] != 0){
+                tmp = nums[left];
+                nums[left] = nums[right];
+                nums[right] = tmp;
+                right++;
+                left++;
+            }
+            
+            else{
+                right++;
+            }
+        }
+        
+    }
+}
+
+
+Q6:
+class Solution {
+    public int maxProfit(int[] prices) {
+        
+        int maxp = 0, i, minp = Integer.MAX_VALUE;
+        
+        for(i = 0; i < prices.length; i++){
+                if(prices[i] < minp){
+                    minp = prices[i];
+                }
+            
+                else if(prices[i] - minp > maxp){
+                    maxp = prices[i] - minp;
+                }
+        }
+        
+        return maxp;
+        
+    }
+}
