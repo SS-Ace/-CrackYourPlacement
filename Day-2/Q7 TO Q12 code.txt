@@ -1,0 +1,150 @@
+Q7:
+class Solution {
+    public int maxProfit(int[] prices) {
+        
+        int maxp = 0, i, minp = Integer.MAX_VALUE;
+        
+        for(i = 0; i < prices.length; i++){
+                if(prices[i] < minp){
+                    minp = prices[i];
+                }
+            
+                else if(prices[i] - minp > maxp){
+                    maxp = prices[i] - minp;
+                }
+        }
+        
+        return maxp;
+        
+    }
+}
+
+Q8:
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+        int res[] = new int[2];
+        int i, compl;
+        
+        for(i = 0; i < nums.length; i++){
+            compl = target - nums[i];
+            if(map.containsKey(compl)){
+                res[1] = i;
+                res[0] = map.get(compl);
+                return res;
+            }
+            map.put(nums[i], i);
+        }
+        
+        return null;
+        
+    }
+}
+
+Q9:
+class Solution {
+    public int maxProfit(int[] prices) {
+        
+        int profit = 0, i;
+        
+        for(i = 1; i < prices.length; i++){
+            
+            if(prices[i] > prices[i - 1]){
+                
+                profit += (prices[i] - prices[i - 1]);
+            
+            }
+        }
+    
+        return profit;
+        
+    }
+}
+
+Q10:
+class Solution {
+    public int subarraysDivByK(int[] nums, int k) {
+        
+        //initializing
+        int i, sum = 0, ans = 0, rem = 0;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        
+        map.put(0, 1);
+        
+        for(i = 0; i < nums.length; i++){
+            sum += nums[i];
+            rem = sum % k;
+            
+            if(rem < 0){
+                rem += k;
+            }
+            
+            if(map.containsKey(rem)){
+                ans += map.get(rem);
+                map.put(rem, map.get(rem) + 1);
+            }
+            
+            else{
+                map.put(rem, 1);
+            }
+        }
+        
+        return ans;
+        
+    }
+}
+
+Q11:
+class Solution {
+    public List<Integer> findDuplicates(int[] nums) {
+        
+        List<Integer> res = new ArrayList<>();
+        int i;
+        
+        for(i = 0; i < nums.length; i++){
+            
+            int ind = Math.abs(nums[i]) - 1;
+            int val = nums[ind];
+            
+            if(val < 0){
+                res.add(ind + 1);
+            }
+            
+            else{
+                nums[ind] *= -1;
+            }
+        }
+        
+        return res;
+        
+    }
+}
+
+
+Q12:
+class Solution {
+    public int maxArea(int[] height) {
+        int w, i = 0, j = height.length - 1, maxA = 0, minh;
+        //i left 
+        //j right
+        
+        while(i < j){
+            w = j - i;
+            minh = Math.min(height[i], height[j]);
+            maxA = Math.max(maxA, w * minh);
+            
+            if(height[i] < height[j]){
+                i++;
+            }
+            
+            //else condition for height[j] minimum and for same height
+            //we can also use i++ for same height;
+            else{
+                j--;
+            }
+        }
+        
+        return maxA;
+        
+    }
+}
